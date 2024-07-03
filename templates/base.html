@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Avinash Kumar Dwivedi - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .rotate {
+            animation: rotate 10s linear infinite;
+        }
+        .circle img {
+            animation: rotate 10s linear infinite reverse;
+        }
+        
+    </style>
+</head>
+
+<body class="font-sans leading-normal tracking-normal">
+
+{% include "header.html" %}
+
+{% block content %}
+{% endblock content %}
+
+{% include "footer.html" %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+<script>
+    const names = ["Avinash ", "Full Stack Developer"];
+    let nameIndex = 0;
+
+    function typeWriter() {
+        const name = names[nameIndex];
+        let charIndex = 0;
+        let isTyping = true;
+
+        function animateText() {
+            if (isTyping) {
+                document.getElementById("typewriter").textContent += name[charIndex];
+                charIndex++;
+                if (charIndex === name.length) {
+                    isTyping = false;
+                    setTimeout(animateText, 2000); // Delay before erasing text
+                } else {
+                    setTimeout(animateText, 100); // Typing speed
+                }
+            } else {
+                document.getElementById("typewriter").textContent = "Hi👋, I'm ";
+                nameIndex = (nameIndex + 1) % names.length;
+                charIndex = 0;
+                isTyping = true;
+                setTimeout(typeWriter, 1000); // Delay before starting next name
+            }
+        }
+
+        animateText();
+    }
+
+    typeWriter();
+</script>
+
+</body>
+</html>
